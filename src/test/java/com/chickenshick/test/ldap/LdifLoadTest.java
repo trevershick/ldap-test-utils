@@ -35,7 +35,7 @@ public class LdifLoadTest {
 	}
 	
 	@Test
-	public void testStartsUpWithMyValues() throws Exception {
+	public void testMyLdifFileWasLoaded() throws Exception {
 		LdapTemplate t = new LdapTemplate();
 		LdapContextSource s = new LdapContextSource();
 		s.setPassword(LdapConfiguration.DEFAULT_PASSWORD);
