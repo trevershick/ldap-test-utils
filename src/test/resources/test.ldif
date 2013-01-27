@@ -1,0 +1,10 @@
+dn: dc=root
+changetype: add
+objectclass: domain
+dc: root
+
+dn: dc=child,dc=root
+changetype: add
+objectclass: domain
+dc: child
+
