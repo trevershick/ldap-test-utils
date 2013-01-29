@@ -9,7 +9,7 @@
 
 	<groupId>com.github.trevershick</groupId>
 	<artifactId>ldap-test-utils</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Test Utilities for working with LDAP</name>
 	<description>Client library that makes it easy to test with an embedded LDAP server (from unboundid).</description>
