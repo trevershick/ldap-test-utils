@@ -25,16 +25,21 @@ public class LdapServerResource {
 	private InMemoryDirectoryServer server;
 	private LdapConfiguration config;
 
+	public LdapServerResource() {
+		this(null);
+	}
+
 	public LdapServerResource(Object annotated) {
-		this.config = annotated.getClass().getAnnotation(LdapConfiguration.class);
+		this.config = annotated == null ? null : annotated.getClass().getAnnotation(LdapConfiguration.class);
 		if (this.config == null) {
-			throw new IllegalArgumentException("annotated MUST be annotated with LdapConfiguration");
+			this.config = defaultConfiguration();
 		}
 	}
 
-	public LdapServerResource() {
-		this.config = LdapServerResource.class.getAnnotation(LdapConfiguration.class);
+	protected LdapConfiguration defaultConfiguration() {
+		return LdapServerResource.class.getAnnotation(LdapConfiguration.class);
 	}
+
 
 	public void stop() {
 		if (server != null) {
