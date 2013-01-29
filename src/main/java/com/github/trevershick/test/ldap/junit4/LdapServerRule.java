@@ -23,9 +23,14 @@ public class LdapServerRule implements TestRule {
 			@Override
 			public void evaluate() throws Throwable {
 				ldapServer = new LdapServerResource(target);
-				ldapServer.start();
-				base.evaluate();
-				ldapServer.stop();
+				try {
+					ldapServer.start();
+					base.evaluate();
+				} finally {
+					if (ldapServer.isStarted()) {
+						ldapServer.stop();
+					}
+				}
 				ldapServer = null;
 			}
 		};
