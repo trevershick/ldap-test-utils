@@ -7,6 +7,7 @@ import org.junit.runners.model.Statement;
 import com.github.trevershick.test.ldap.LdapServerResource;
 
 public class LdapServerRule implements TestRule {
+	private LdapServerResource ldapServer;
 
 	private Object target;
 	
@@ -19,15 +20,24 @@ public class LdapServerRule implements TestRule {
 	
 	public Statement apply(final Statement base, Description description) {
 		return new Statement() {
-			LdapServerResource ldapServer;
 			@Override
 			public void evaluate() throws Throwable {
 				ldapServer = new LdapServerResource(target);
 				ldapServer.start();
 				base.evaluate();
 				ldapServer.stop();
+				ldapServer = null;
 			}
 		};
+	}
+	public int port() {
+		return ldapServer.port();
+	}
+	public boolean serverIsStarted() {
+		return ldapServer != null && ldapServer.isStarted();
+	}
+	public boolean serverIsStopped() {
+		return ldapServer != null && ldapServer.isStopped();
 	}
 
 }

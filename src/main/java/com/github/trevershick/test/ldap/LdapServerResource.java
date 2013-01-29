@@ -2,6 +2,7 @@ package com.github.trevershick.test.ldap;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class LdapServerResource {
 
 	private InMemoryDirectoryServer server;
 	private LdapConfiguration config;
+	
 
 	public LdapServerResource() {
 		this(null);
@@ -35,11 +37,13 @@ public class LdapServerResource {
 			this.config = defaultConfiguration();
 		}
 	}
-
-	protected LdapConfiguration defaultConfiguration() {
-		return LdapServerResource.class.getAnnotation(LdapConfiguration.class);
+	
+	public int port() {
+		if (!isStarted()) {
+			throw new IllegalStateException("The LDAP server is not started");
+		}
+		return this.server.getListenPort();
 	}
-
 
 	public void stop() {
 		if (server != null) {
@@ -60,11 +64,17 @@ public class LdapServerResource {
 		if (server != null) {
 			throw new IllegalStateException("server is already initialized");
 		}
-		InMemoryDirectoryServerConfig c = new InMemoryDirectoryServerConfig(new DN(config.base().dn()));
-		c.setListenerConfigs(InMemoryListenerConfig.createLDAPConfig("default", config.port()));
-		c.addAdditionalBindCredentials(config.bindDn(), config.password());
-		server = new InMemoryDirectoryServer(c);
-		server.startListening();
+
+		try {
+			server = configureWithPort(config.port());
+		} catch (BindException be) {
+			if (config.useRandomPortAsFallback()) {
+				server = configureWithPort(0);
+			} else {
+				throw be;
+			}
+		}
+
 		// initialize the user store
 		loadLdifFiles();
 		loadRootEntry();
@@ -72,6 +82,31 @@ public class LdapServerResource {
 		return this;
 	}
 	
+	protected InMemoryDirectoryServer configureWithPort(int port) throws LDAPException,BindException {
+		InMemoryListenerConfig listenerConfig = (port > 0) ? 
+				InMemoryListenerConfig.createLDAPConfig("default", config.port()) :
+				InMemoryListenerConfig.createLDAPConfig("default");
+				
+		InMemoryDirectoryServerConfig c = new InMemoryDirectoryServerConfig(new DN(config.base().dn()));
+		c.setListenerConfigs(listenerConfig);
+		c.addAdditionalBindCredentials(config.bindDn(), config.password());
+		server = new InMemoryDirectoryServer(c);
+		try {
+			server.startListening();
+			return server;
+		} catch (LDAPException ldape) {
+			if (ldape.getMessage().contains("java.net.BindException")) {
+				throw new BindException(ldape.getMessage());
+			}
+			throw ldape;
+		}
+	}
+
+	protected LdapConfiguration defaultConfiguration() {
+		return LdapServerResource.class.getAnnotation(LdapConfiguration.class);
+	}
+
+
 	protected void loadRootEntry() throws LDAPException {
 		SearchResultEntry entry = this.server.getEntry(config.base().dn());
 		if (entry == null) {

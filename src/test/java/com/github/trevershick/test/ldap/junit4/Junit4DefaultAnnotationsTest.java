@@ -1,5 +1,6 @@
 package com.github.trevershick.test.ldap.junit4;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.ldap.filter.PresentFilter;
 
 import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 
-
+@LdapConfiguration(useRandomPortAsFallback=true)
 public class Junit4DefaultAnnotationsTest {
 
 	/**
@@ -23,7 +24,22 @@ public class Junit4DefaultAnnotationsTest {
 	@Rule
 	public LdapServerRule rule = new LdapServerRule(this);
 
+	/**
+	 * You should not do this, but this is here for 'secondRuleStartsRandomPort'
+	 */
+	@Rule
+	public LdapServerRule rule2 = new LdapServerRule(this);
 
+	@Test
+	public void secondRuleStartsRandomPort() {
+		assertTrue(rule.serverIsStarted());
+		assertTrue(rule2.serverIsStarted());
+		assertTrue("One of the 'rules' is using the default port", 
+				LdapConfiguration.DEFAULT_PORT == rule.port() ||
+				LdapConfiguration.DEFAULT_PORT == rule2.port());
+	}
+	
+	
 	@Test
 	public void testStartsUpWithDefaults() throws Exception {
 		LdapTemplate t = new LdapTemplate();
