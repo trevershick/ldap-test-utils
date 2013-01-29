@@ -13,7 +13,6 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.PresentFilter;
 
-import com.github.trevershick.test.ldap.LdapServerResource;
 import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 import com.github.trevershick.test.ldap.annotations.LdapEntry;
 
