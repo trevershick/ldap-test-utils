@@ -1,4 +1,4 @@
-package com.chickenshick.test.ldap.annotations;
+package com.github.trevershick.test.ldap.annotations;
 
 
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package com.chickenshick.test.ldap;
+package com.github.trevershick.test.ldap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,9 +14,10 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.PresentFilter;
 
-import com.chickenshick.test.ldap.annotations.LdapAttribute;
-import com.chickenshick.test.ldap.annotations.LdapConfiguration;
-import com.chickenshick.test.ldap.annotations.LdapEntry;
+import com.github.trevershick.test.ldap.LdapServerResource;
+import com.github.trevershick.test.ldap.annotations.LdapAttribute;
+import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
+import com.github.trevershick.test.ldap.annotations.LdapEntry;
 
 @LdapConfiguration(
 		entries={

@@ -1,7 +1,6 @@
-package com.chickenshick.test.ldap;
+package com.github.trevershick.test.ldap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -14,28 +13,16 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.ldap.filter.PresentFilter;
 
-import com.chickenshick.test.ldap.annotations.LdapConfiguration;
-import com.chickenshick.test.ldap.annotations.Ldif;
+import com.github.trevershick.test.ldap.LdapServerResource;
+import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 
-@LdapConfiguration(
-		ldifs = @Ldif("/test.ldif")
-)
-public class LdifLoadTest {
+
+public class DefaultAnnotationsTest {
 
 	private LdapServerResource server;
-	
-	@Before
-	public void startup() throws Exception {
-		server = new LdapServerResource(this).start();
-	}
-	
-	@After
-	public void shutdown() {
-		server.stop();
-	}
-	
+
 	@Test
-	public void testMyLdifFileWasLoaded() throws Exception {
+	public void testStartsUpWithDefaults() throws Exception {
 		LdapTemplate t = new LdapTemplate();
 		LdapContextSource s = new LdapContextSource();
 		s.setPassword(LdapConfiguration.DEFAULT_PASSWORD);
@@ -45,7 +32,7 @@ public class LdifLoadTest {
 		t.afterPropertiesSet();
 		s.afterPropertiesSet();
 		
-		PresentFilter filter = new PresentFilter("dc");
+		PresentFilter filter = new PresentFilter("objectclass");
 		
 		@SuppressWarnings("unchecked")
 		List<String> dns = t.search("",filter.encode(), new ContextMapper() {
@@ -55,8 +42,17 @@ public class LdifLoadTest {
 			}
 		});
 		
-		assertEquals(2, dns.size());
-		assertTrue(dns.contains("dc=root"));
-		assertTrue(dns.contains("dc=child,dc=root"));
+		assertEquals(1, dns.size());
+		assertEquals(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN, dns.get(0));
+	}
+
+	@After
+	public void shutdown() {
+		server.stop();
+	}
+
+	@Before
+	public void startup() throws Exception {
+		server = new LdapServerResource().start();
 	}
 }

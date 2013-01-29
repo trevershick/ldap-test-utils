@@ -1,14 +1,14 @@
-package com.chickenshick.test.ldap;
+package com.github.trevershick.test.ldap;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.chickenshick.test.ldap.annotations.LdapAttribute;
-import com.chickenshick.test.ldap.annotations.LdapConfiguration;
-import com.chickenshick.test.ldap.annotations.LdapEntry;
-import com.chickenshick.test.ldap.annotations.Ldif;
+import com.github.trevershick.test.ldap.annotations.LdapAttribute;
+import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
+import com.github.trevershick.test.ldap.annotations.LdapEntry;
+import com.github.trevershick.test.ldap.annotations.Ldif;
 import com.unboundid.ldap.listener.InMemoryDirectoryServer;
 import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
 import com.unboundid.ldap.listener.InMemoryListenerConfig;
