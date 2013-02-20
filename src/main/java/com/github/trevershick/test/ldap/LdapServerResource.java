@@ -25,7 +25,7 @@ public class LdapServerResource {
 
 	private InMemoryDirectoryServer server;
 	private LdapConfiguration config;
-	
+	private Class annotatedClass;
 
 	public LdapServerResource() {
 		this(null);
@@ -35,6 +35,8 @@ public class LdapServerResource {
 		this.config = annotated == null ? null : annotated.getClass().getAnnotation(LdapConfiguration.class);
 		if (this.config == null) {
 			this.config = defaultConfiguration();
+		} else {
+			annotatedClass = annotated.getClass();
 		}
 	}
 	
@@ -143,7 +145,8 @@ public class LdapServerResource {
 	protected void loadLdifFiles() throws Exception {
 		Iterable<String> ldifResources = ldifResources();
 		for (String ldif : ldifResources) {
-			InputStream resourceAsStream = getClass().getResourceAsStream(ldif);
+			Class clazz = (annotatedClass != null) ? annotatedClass : getClass();
+			InputStream resourceAsStream = clazz.getResourceAsStream(ldif);
 			if (resourceAsStream == null) {
 				throw new FileNotFoundException("Should be able to load " + ldif);
 			}
