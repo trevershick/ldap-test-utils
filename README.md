@@ -1,4 +1,4 @@
-Test Utilities for working with LDAP
+Test Utilities for working with LDAP [![Build Status](https://travis-ci.org/trevershick/ldap-test-utils.png?branch=master)](https://travis-ci.org/trevershick/ldap-test-utils)
 ====================================
 
 This is a simple library that you can use which will make setting up
