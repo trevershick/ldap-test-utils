@@ -161,3 +161,7 @@ The following test illustrates this feature.
 			s2.stop();
 		}
 	}
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/trevershick/ldap-test-utils/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
