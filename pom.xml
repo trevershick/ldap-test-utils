@@ -84,7 +84,6 @@
         <version>2.10.4</version>
         <configuration>
           <show>public</show>
-          <excludePackageNames>io.shick.jsoup.jowli.ast:io.shick.jsoup.util</excludePackageNames>
           <aggregate>true</aggregate>
           <tags>
             <tag>

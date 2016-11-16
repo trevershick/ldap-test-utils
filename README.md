@@ -168,6 +168,3 @@ The following test illustrates this feature.
 		}
 	}
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/trevershick/ldap-test-utils/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
