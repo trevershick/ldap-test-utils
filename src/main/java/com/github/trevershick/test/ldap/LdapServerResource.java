@@ -97,7 +97,7 @@ public class LdapServerResource {
 			server.startListening();
 			return server;
 		} catch (LDAPException ldape) {
-			if (ldape.getMessage().contains("java.net.BindException")) {
+			if (ldape.getMessage().contains("BindException")) {
 				throw new BindException(ldape.getMessage());
 			}
 			throw ldape;
