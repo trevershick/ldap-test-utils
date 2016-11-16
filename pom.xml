@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -10,7 +9,7 @@
 
   <groupId>com.github.trevershick</groupId>
   <artifactId>ldap-test-utils</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.0.0</version>
   <packaging>jar</packaging>
   <name>Test Utilities for working with LDAP</name>
   <description>Client library that makes it easy to test with an embedded LDAP server (from unboundid).</description>
@@ -32,6 +31,7 @@
     <connection>scm:git:git@github.com:trevershick/ldap-test-utils.git</connection>
     <url>scm:git:git@github.com:trevershick/ldap-test-utils.git</url>
     <developerConnection>scm:git:git@github.com:trevershick/ldap-test-utils.git</developerConnection>
+    <tag>ldap-test-utils-2.0.0</tag>
   </scm>
 
   <developers>
