@@ -1,57 +1,33 @@
 package com.github.trevershick.test.ldap;
 
-import static org.junit.Assert.assertEquals;
+import static com.github.trevershick.test.ldap.Utils.Filters.OBJECTCLASS_PRESENT;
+import static com.github.trevershick.test.ldap.Utils.Mappers.DN_MAPPER;
+import static com.github.trevershick.test.ldap.Utils.Spring.ldapTemplate;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.springframework.ldap.core.ContextMapper;
-import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.core.support.LdapContextSource;
-import org.springframework.ldap.filter.PresentFilter;
 
 import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
-
+import com.github.trevershick.test.ldap.junit4.LdapServerRule;
 
 public class DefaultAnnotationsTest {
 
-	private LdapServerResource server;
+  @Rule
+  public LdapServerRule rule = new LdapServerRule(this);
 
-	@Test
-	public void testStartsUpWithDefaults() throws Exception {
-		LdapTemplate t = new LdapTemplate();
-		LdapContextSource s = new LdapContextSource();
-		s.setPassword(LdapConfiguration.DEFAULT_PASSWORD);
-		s.setUserDn(LdapConfiguration.DEFAULT_BIND_DN);
-		s.setUrl(String.format("ldap://localhost:%d", LdapConfiguration.DEFAULT_PORT));
-		t.setContextSource(s);
-		t.afterPropertiesSet();
-		s.afterPropertiesSet();
-		
-		PresentFilter filter = new PresentFilter("objectclass");
-		
-		@SuppressWarnings("unchecked")
-		List<String> dns = t.search("",filter.encode(), new ContextMapper() {
-			public Object mapFromContext(Object ctx) {
-				DirContextAdapter context = (DirContextAdapter)ctx;
-				return context.getDn().toString();
-			}
-		});
-		
-		assertEquals(1, dns.size());
-		assertEquals(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN, dns.get(0));
-	}
+  @Test
+  public void testStartsUpWithDefaults() throws Exception {
+    LdapTemplate t = ldapTemplate(LdapConfiguration.DEFAULT_BIND_DN,
+      LdapConfiguration.DEFAULT_PASSWORD,
+      LdapConfiguration.DEFAULT_PORT);
+    
+    final List<String> dns = t.search("", OBJECTCLASS_PRESENT,DN_MAPPER);
 
-	@After
-	public void shutdown() {
-		server.stop();
-	}
-
-	@Before
-	public void startup() throws Exception {
-		server = new LdapServerResource().start();
-	}
+    assertThat(dns, hasItems(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN));
+  }
 }

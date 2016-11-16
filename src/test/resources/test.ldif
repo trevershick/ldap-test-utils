@@ -8,3 +8,11 @@ changetype: add
 objectclass: domain
 dc: child
 
+dn: cn=tshick2,dc=root
+changetype: add
+objectclass: person
+userPassword: thepassword2
+sn: Shick
+cn: tshick
+
+
