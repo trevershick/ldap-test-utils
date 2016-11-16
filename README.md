@@ -1,5 +1,11 @@
-Test Utilities for working with LDAP [![Build Status](https://travis-ci.org/trevershick/ldap-test-utils.png?branch=master)](https://travis-ci.org/trevershick/ldap-test-utils)
+Test Utilities for working with LDAP 
 ====================================
+[![Maven Status](https://maven-badges.herokuapp.com/maven-central/com.github.trevershick/ldap-test-utils/badge.svg?style=flat)](http://mvnrepository.com/artifact/com.github.trevershick/ldap-test-utils)
+[![Build Status](https://travis-ci.org/trevershick/ldap-test-utils.png?branch=master)](https://travis-ci.org/trevershick/ldap-test-utils)
+[![Coverage Status](https://coveralls.io/repos/github/trevershick/ldap-test-utils/badge.svg?branch=master)](https://coveralls.io/github/trevershick/ldap-test-utils?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/582bad90c8dd330040426f8d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5827c5f22f4754004186d0b3)
+[![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 This is a simple library that you can use which will make setting up
 unboundid's embedded LDAP server a snap for your unit tests.  

@@ -1,1 +1,10 @@
 language: java
+jdk:
+- oraclejdk8
+env:
+  global:
+  - secure: asfSFa+J2vwX9urY7RLFLVNN5C4g3HPJTb0wgzMsF/OaIRY3Z+9HZDWl1Fv1KjwVXZ3Ju3BMUXaEwb4yZS7kwys84D7l3hHXujPriKq2dw0F/eaPzmv5rzzc5lWtgizq6CSOzm3OYMUolnkCFR0AavTO0QzXKwauIkyrsCy7Wxg=
+  - secure: b2Lf4OVrshIw557wtD+9t9WPkoCQ46sgmz/TN0VJKJvFkflUKAgsqyeU2RjhBGgW88jZ2eOEWsEKkKt92lJqADcrEw8+ZO0urk4MtOec/8dM0YLreb9NCfrBHmWDT5LygNdNv6ggMBQd5sE0QqecK9TFJkSsOu6R2/FLcr/G/X0=
+  - secure: YhRRfOntaOaNR6WsJ+2k/peOp8qnBVHmuSIKSagvyLhHqyk8CFW85WtTG+l/0jn7W+nm6+lxLeweDKGqPaXRMdNWJZk25nDwOB3nJN2OO9jq57nqjDtoV8a4ARDroumWjQZsxRvGTKkjILdvdPbyRLvqtKa7gYfQMAg9dJlHR1Q=
+after_success:
+- mvn clean test jacoco:report coveralls:report deploy --settings travis-settings.xml
