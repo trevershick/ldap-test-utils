@@ -134,6 +134,10 @@ public class LdapServerResource {
     }
   }
 
+  public InMemoryDirectoryServer getServer() {
+    return this.server;
+  }
+
   /**
    * Build an LDAP entry from the @LdapEntry annotation
    */

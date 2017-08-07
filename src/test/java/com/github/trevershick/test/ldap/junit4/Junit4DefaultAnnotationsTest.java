@@ -1,18 +1,18 @@
 package com.github.trevershick.test.ldap.junit4;
 
-import static com.github.trevershick.test.ldap.Utils.Filters.OBJECTCLASS_PRESENT;
-import static com.github.trevershick.test.ldap.Utils.Mappers.DN_MAPPER;
-import static com.github.trevershick.test.ldap.Utils.Spring.ldapTemplate;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
+import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.ldap.core.LdapTemplate;
 
-import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
+import java.util.List;
+
+import static com.github.trevershick.test.ldap.Utils.Filters.OBJECTCLASS_PRESENT;
+import static com.github.trevershick.test.ldap.Utils.Mappers.DN_MAPPER;
+import static com.github.trevershick.test.ldap.Utils.Spring.ldapTemplate;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @LdapConfiguration(useRandomPortAsFallback = true)
 public class Junit4DefaultAnnotationsTest {
@@ -49,5 +49,10 @@ public class Junit4DefaultAnnotationsTest {
 
     assertEquals(1, dns.size());
     assertEquals(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN, dns.get(0));
+  }
+
+  @Test
+  public void testAccessToServer() {
+    assertNotNull(rule.getServer().getServer());
   }
 }
