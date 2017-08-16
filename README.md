@@ -168,3 +168,20 @@ The following test illustrates this feature.
 		}
 	}
 
+### useSchema
+By default, the LDAP server will use schema.
+To disable this (particularly useful when you're doing TDD and building 
+things up gradually) you can disable schema validation completely.
+
+    package com.github.trevershick.test.ldap;
+
+
+    @LdapConfiguration(useSchema=false)
+    public class DisableSchemaTest {
+    
+        @Test
+        public void wontValidateSchema() throws Exception {
+            LdapServerResource s1 = new LdapServerResource(this);
+            assertEquals("Schema should be null", null, s1.getServer().getConfig().getSchema());
+        }
+    }

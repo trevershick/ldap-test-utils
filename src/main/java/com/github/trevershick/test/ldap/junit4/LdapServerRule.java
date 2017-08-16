@@ -49,4 +49,8 @@ public class LdapServerRule implements TestRule {
   public boolean serverIsStopped() {
     return ldapServer != null && ldapServer.isStopped();
   }
+
+  public LdapServerResource getServer() {
+    return this.ldapServer;
+  }
 }

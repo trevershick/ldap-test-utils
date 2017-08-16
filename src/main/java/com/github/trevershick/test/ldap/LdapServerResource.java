@@ -1,11 +1,5 @@
 package com.github.trevershick.test.ldap;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.BindException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.trevershick.test.ldap.annotations.LdapAttribute;
 import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 import com.github.trevershick.test.ldap.annotations.LdapEntry;
@@ -19,6 +13,12 @@ import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.SearchResultEntry;
 import com.unboundid.ldif.LDIFChangeRecord;
 import com.unboundid.ldif.LDIFReader;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.BindException;
+import java.util.ArrayList;
+import java.util.List;
 
 @LdapConfiguration
 public class LdapServerResource {
@@ -95,6 +95,9 @@ public class LdapServerResource {
     InMemoryDirectoryServerConfig c = new InMemoryDirectoryServerConfig(new DN(config.base().dn()));
     c.setListenerConfigs(listenerConfig);
     c.addAdditionalBindCredentials(config.bindDn(), config.password());
+    if (!config.useSchema()) {
+      c.setSchema(null);
+    }
     server = new InMemoryDirectoryServer(c);
     try {
       server.startListening();
@@ -129,6 +132,10 @@ public class LdapServerResource {
       Entry entry = entry(entries[i]);
       this.server.add(entry);
     }
+  }
+
+  public InMemoryDirectoryServer getServer() {
+    return this.server;
   }
 
   /**

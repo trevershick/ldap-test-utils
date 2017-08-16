@@ -29,4 +29,6 @@ public @interface LdapConfiguration {
   String bindDn() default DEFAULT_BIND_DN;
 
   String password() default DEFAULT_PASSWORD;
+
+  boolean useSchema() default true;
 }
