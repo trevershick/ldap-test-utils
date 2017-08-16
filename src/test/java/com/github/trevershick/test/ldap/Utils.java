@@ -43,5 +43,7 @@ public class Utils {
 		public static final String DC_PRESENT = new PresentFilter("objectclass").encode();
 
 		public static final String OU_PRESENT = new PresentFilter("ou").encode();
+
+		public static final String USERPRINCIPAL_PRESENT = new PresentFilter("userPrincipalName").encode();
 	}
 }

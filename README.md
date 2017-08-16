@@ -118,6 +118,17 @@ Alternately, you can use LDIF files to add entries (or schema changes).  The exa
 		...
 	}
 
+### Updating the LDAP Schema via LDIF Files
+
+The in memory ldap server's schema can be altered via LDIF files.  The following stanza
+ comes from schematest.ldif in the src/test folder of the project.  This file can be loaded
+ just like any other LDIF file. 
+
+    dn: cn=schema
+    changetype: modify
+    add: attributetypes
+    attributetypes: ( 1.2.3.4.5.6.7 NAME 'userPrincipalName' DESC 'userPrincipalName as per Active Directory' EQUALITY caseIgnoreMatch SYNTAX '1.3.6.1.4.1.1466.115.121.1.15' )
+
 
 ## Example JUnit Test
 

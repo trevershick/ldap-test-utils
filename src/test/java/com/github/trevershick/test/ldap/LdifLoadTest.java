@@ -16,9 +16,7 @@ import com.github.trevershick.test.ldap.annotations.LdapConfiguration;
 import com.github.trevershick.test.ldap.annotations.Ldif;
 import com.github.trevershick.test.ldap.junit4.LdapServerRule;
 
-@LdapConfiguration(
-		ldifs = @Ldif("/test.ldif")
-)
+@LdapConfiguration(ldifs = @Ldif("/test.ldif"))
 public class LdifLoadTest {
 
 	@Rule
