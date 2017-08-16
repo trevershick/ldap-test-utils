@@ -5,9 +5,9 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 public abstract @interface LdapEntry {
-  String dn();
+	String dn();
 
-  String[] objectclass();
+	String[] objectclass();
 
-  LdapAttribute[] attributes() default {};
+	LdapAttribute[] attributes() default {};
 }

@@ -18,23 +18,23 @@ import com.github.trevershick.test.ldap.annotations.LdapEntry;
 import com.github.trevershick.test.ldap.junit4.LdapServerRule;
 
 @LdapConfiguration(
-  entries = {
-    @LdapEntry(dn = "ou=Groups,dc=root", objectclass = "organizationalUnit", attributes = {
-      @LdapAttribute(name = "ou", value = "Groups")})
-  }
+		entries = {
+				@LdapEntry(dn = "ou=Groups,dc=root", objectclass = "organizationalUnit", attributes = {
+						@LdapAttribute(name = "ou", value = "Groups")})
+		}
 )
 public class CustomEntriesAnnotationsTest {
-  @Rule
-  public LdapServerRule rule = new LdapServerRule(this);
+	@Rule
+	public LdapServerRule rule = new LdapServerRule(this);
 
-  @Test
-  public void testStartsUpWithMyEntries() throws Exception {
-    LdapTemplate t = ldapTemplate(LdapConfiguration.DEFAULT_BIND_DN,
-      LdapConfiguration.DEFAULT_PASSWORD,
-      LdapConfiguration.DEFAULT_PORT);
+	@Test
+	public void testStartsUpWithMyEntries() throws Exception {
+		LdapTemplate t = ldapTemplate(LdapConfiguration.DEFAULT_BIND_DN,
+				LdapConfiguration.DEFAULT_PASSWORD,
+				LdapConfiguration.DEFAULT_PORT);
 
-    final List<String> dns = t.search("", OU_PRESENT, DN_MAPPER);
+		final List<String> dns = t.search("", OU_PRESENT, DN_MAPPER);
 
-    assertThat("My OU should have been returned", dns, hasItems("ou=Groups,dc=root"));
-  }
+		assertThat("My OU should have been returned", dns, hasItems("ou=Groups,dc=root"));
+	}
 }

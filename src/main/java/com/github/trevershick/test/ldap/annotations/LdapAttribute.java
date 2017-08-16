@@ -1,7 +1,7 @@
 package com.github.trevershick.test.ldap.annotations;
 
 public @interface LdapAttribute {
-  String name();
+	String name();
 
-  String[] value();
+	String[] value();
 }
