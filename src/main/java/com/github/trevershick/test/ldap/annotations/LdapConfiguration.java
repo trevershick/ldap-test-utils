@@ -10,25 +10,25 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface LdapConfiguration {
-  public static final String DEFAULT_ROOT_OBJECT_DN = "dc=root";
-  public static final String DEFAULT_ROOT_ENTRY_OBJECTCLASS = "domain";
-  public static final int DEFAULT_PORT = 10389;
-  public static final String DEFAULT_PASSWORD = "password";
-  public static final String DEFAULT_BIND_DN = "cn=admin";
+	String DEFAULT_ROOT_OBJECT_DN = "dc=root";
+	String DEFAULT_ROOT_ENTRY_OBJECTCLASS = "domain";
+	int DEFAULT_PORT = 10389;
+	String DEFAULT_PASSWORD = "password";
+	String DEFAULT_BIND_DN = "cn=admin";
 
-  boolean useRandomPortAsFallback() default false;
+	boolean useRandomPortAsFallback() default false;
 
-  int port() default DEFAULT_PORT;
+	int port() default DEFAULT_PORT;
 
-  LdapEntry base() default @LdapEntry(objectclass = DEFAULT_ROOT_ENTRY_OBJECTCLASS, dn = DEFAULT_ROOT_OBJECT_DN);
+	LdapEntry base() default @LdapEntry(objectclass = DEFAULT_ROOT_ENTRY_OBJECTCLASS, dn = DEFAULT_ROOT_OBJECT_DN);
 
-  LdapEntry[] entries() default {};
+	LdapEntry[] entries() default {};
 
-  Ldif[] ldifs() default {};
+	Ldif[] ldifs() default {};
 
-  String bindDn() default DEFAULT_BIND_DN;
+	String bindDn() default DEFAULT_BIND_DN;
 
-  String password() default DEFAULT_PASSWORD;
+	String password() default DEFAULT_PASSWORD;
 
-  boolean useSchema() default true;
+	boolean useSchema() default true;
 }

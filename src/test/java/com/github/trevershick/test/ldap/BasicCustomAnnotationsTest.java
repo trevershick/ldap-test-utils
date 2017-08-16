@@ -17,24 +17,24 @@ import com.github.trevershick.test.ldap.annotations.LdapEntry;
 import com.github.trevershick.test.ldap.junit4.LdapServerRule;
 
 @LdapConfiguration(
-  bindDn = "cn=Directory Manager",
-  password = "mypass",
-  port = 11111,
-  base = @LdapEntry(dn = "dc=myroot", objectclass = {"top", "domain"})
+		bindDn = "cn=Directory Manager",
+		password = "mypass",
+		port = 11111,
+		base = @LdapEntry(dn = "dc=myroot", objectclass = {"top", "domain"})
 )
 public class BasicCustomAnnotationsTest {
 
-  @Rule
-  public LdapServerRule rule = new LdapServerRule(this);
+	@Rule
+	public LdapServerRule rule = new LdapServerRule(this);
 
-  @Test
-  public void testStartsUpWithMyValues() throws Exception {
-    final LdapTemplate t = ldapTemplate("cn=Directory Manager",
-      "mypass",
-      11111);
+	@Test
+	public void testStartsUpWithMyValues() throws Exception {
+		final LdapTemplate t = ldapTemplate("cn=Directory Manager",
+				"mypass",
+				11111);
 
-    final List<String> dns = t.search("", OBJECTCLASS_PRESENT, DN_MAPPER);
+		final List<String> dns = t.search("", OBJECTCLASS_PRESENT, DN_MAPPER);
 
-    assertThat(dns, hasItems("dc=myroot"));
-  }
+		assertThat(dns, hasItems("dc=myroot"));
+	}
 }

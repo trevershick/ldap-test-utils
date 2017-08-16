@@ -17,17 +17,17 @@ import com.github.trevershick.test.ldap.junit4.LdapServerRule;
 
 public class DefaultAnnotationsTest {
 
-  @Rule
-  public LdapServerRule rule = new LdapServerRule(this);
+	@Rule
+	public LdapServerRule rule = new LdapServerRule(this);
 
-  @Test
-  public void testStartsUpWithDefaults() throws Exception {
-    LdapTemplate t = ldapTemplate(LdapConfiguration.DEFAULT_BIND_DN,
-      LdapConfiguration.DEFAULT_PASSWORD,
-      LdapConfiguration.DEFAULT_PORT);
-    
-    final List<String> dns = t.search("", OBJECTCLASS_PRESENT,DN_MAPPER);
+	@Test
+	public void testStartsUpWithDefaults() throws Exception {
+		LdapTemplate t = ldapTemplate(LdapConfiguration.DEFAULT_BIND_DN,
+				LdapConfiguration.DEFAULT_PASSWORD,
+				LdapConfiguration.DEFAULT_PORT);
 
-    assertThat(dns, hasItems(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN));
-  }
+		final List<String> dns = t.search("", OBJECTCLASS_PRESENT, DN_MAPPER);
+
+		assertThat(dns, hasItems(LdapConfiguration.DEFAULT_ROOT_OBJECT_DN));
+	}
 }

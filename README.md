@@ -173,8 +173,6 @@ By default, the LDAP server will use schema.
 To disable this (particularly useful when you're doing TDD and building 
 things up gradually) you can disable schema validation completely.
 
-    package com.github.trevershick.test.ldap;
-
 
     @LdapConfiguration(useSchema=false)
     public class DisableSchemaTest {
